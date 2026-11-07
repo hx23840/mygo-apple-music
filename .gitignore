@@ -1,0 +1,16 @@
+build/
+dist/
+plugin/bin/
+.audit/
+node_modules/
+.env
+.env.*
+!.env.example
+*.local
+*.p8
+*.p12
+*.mobileprovision
+*.provisionprofile
+*.xcuserstate
+xcuserdata/
+.DS_Store

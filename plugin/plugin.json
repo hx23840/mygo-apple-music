@@ -1,0 +1,35 @@
+{
+  "id": "apple-music",
+  "name": "Apple Music",
+  "version": "0.3.2",
+  "minAppVersion": "0.1.20",
+  "main": "index.js",
+  "playback": "remote",
+  "permissions": {
+    "process": [
+      "bin/MyGoAppleMusic.app/Contents/MacOS/MyGoAppleMusic"
+    ],
+    "network": [
+      "*.mzstatic.com",
+      "lrclib.net"
+    ]
+  },
+  "navigation": [
+    {
+      "title": "Liked Songs",
+      "builtin": "liked"
+    },
+    {
+      "title": "Albums",
+      "builtin": "savedAlbums"
+    },
+    {
+      "title": "Artists",
+      "page": "artists:0"
+    },
+    {
+      "title": "Songs",
+      "page": "library:0"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "mygo-apple-music",
+  "version": "0.3.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "test:native": "bash scripts/test-native.sh",
+    "build": "bash scripts/build.sh",
+    "package": "bash scripts/package.sh",
+    "smoke": "node scripts/smoke.mjs",
+    "verify:live": "node scripts/smoke.mjs --live",
+    "verify:local": "node scripts/verify-local.mjs"
+  },
+  "description": "Apple Music library and playback source for MyGo Music",
+  "license": "AGPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hx23840/mygo-apple-music.git"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
