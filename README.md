@@ -18,9 +18,11 @@
 
 ### 从 GitHub 安装
 
-以下安装方式需要最新 [Release](https://github.com/hx23840/mygo-apple-music/releases/latest) 中提供 `plugin-darwin-arm64.zip` 附件。
+最新 [Release](https://github.com/hx23840/mygo-apple-music/releases/latest) 提供 `plugin-darwin-arm64.zip`，辅助程序使用 Developer ID 签名并通过 Apple 公证。
 
 在 MyGo 的 **设置 > 插件 > 安装插件 > 从 GitHub** 填入 `hx23840/mygo-apple-music`，也可以使用 [在 MyGo 中安装](mygo-music://install-plugin?repo=hx23840/mygo-apple-music)。MyGo 会下载对应平台的发行包并显示权限确认。
+
+如果之前通过本地文件安装过同 ID 插件，先在插件的“更多操作”中移除旧包，再从 GitHub 安装。MyGo 会将旧文件夹移至废纸篓并保留插件数据；本项目已验证迁移后收藏和歌单保持不变。
 
 也可以从 Release 下载 `plugin-darwin-arm64.zip`，通过 **从 Zip 文件** 安装。只有这个附件包含原生辅助程序；GitHub 自动生成的 Source code 压缩包和仓库源码均不能直接用于播放。
 
