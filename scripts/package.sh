@@ -1,9 +1,16 @@
 #!/bin/bash
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-APP="$ROOT/plugin/bin/MyGoAppleMusic.app"
+APP="$ROOT/bin/MyGoAppleMusic.app"
 [[ -x "$APP/Contents/MacOS/MyGoAppleMusic" ]] || { echo 'Build the helper before packaging.' >&2; exit 1; }
 codesign --verify --strict "$APP"
+VERSION="$(plutil -extract version raw -o - "$ROOT/plugin.json")"
+PACKAGE_VERSION="$(plutil -extract version raw -o - "$ROOT/package.json")"
+HELPER_VERSION="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$APP/Contents/Info.plist")"
+if [[ "$VERSION" != "$PACKAGE_VERSION" || "$VERSION" != "$HELPER_VERSION" ]]; then
+  echo "Version mismatch: plugin=$VERSION package=$PACKAGE_VERSION helper=$HELPER_VERSION. Rebuild before packaging." >&2
+  exit 1
+fi
 ARCH="$(lipo -archs "$APP/Contents/MacOS/MyGoAppleMusic")"
 case "$ARCH" in
   arm64|x86_64) ;;
@@ -16,5 +23,5 @@ SUFFIX=""
 mkdir -p "$ROOT/dist"
 DEST="$ROOT/dist/plugin-darwin-$ARCH$SUFFIX.zip"
 [[ ! -e "$DEST" ]] || rm "$DEST"
-(cd "$ROOT/plugin" && /usr/bin/zip -qr "$DEST" plugin.json index.js locales bin)
+(cd "$ROOT" && /usr/bin/zip -qr "$DEST" plugin.json index.js locales bin LICENSE)
 echo "$DEST"

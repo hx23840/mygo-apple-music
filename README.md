@@ -14,9 +14,25 @@
 
 ## 安装
 
-当前发布源码，需要自行签名构建。仓库和 Release 不包含本机开发证书签名的安装包，也不提供可直接播放的未签名包。
+发行包面向 Apple Silicon Mac，需要 macOS 14 或更新版本、MyGo Music 0.1.20 或更新版本和 Apple Music 订阅。在系统“音乐”应用中登录订阅账号，确认资料库中的歌曲可播放。Intel Mac 尚未完成实机验收。
 
-需要 macOS 14 或更新版本、MyGo Music 0.1.20 或更新版本、Apple Music 订阅，以及用于构建的 Xcode 和 Apple 开发者签名配置。在系统“音乐”应用中登录订阅账号，确认资料库中的歌曲可播放。
+### 从 GitHub 安装
+
+以下安装方式需要最新 [Release](https://github.com/hx23840/mygo-apple-music/releases/latest) 中提供 `plugin-darwin-arm64.zip` 附件。
+
+在 MyGo 的 **设置 > 插件 > 安装插件 > 从 GitHub** 填入 `hx23840/mygo-apple-music`，也可以使用 [在 MyGo 中安装](mygo-music://install-plugin?repo=hx23840/mygo-apple-music)。MyGo 会下载对应平台的发行包并显示权限确认。
+
+也可以从 Release 下载 `plugin-darwin-arm64.zip`，通过 **从 Zip 文件** 安装。只有这个附件包含原生辅助程序；GitHub 自动生成的 Source code 压缩包和仓库源码均不能直接用于播放。
+
+1. 允许插件启动包内辅助程序。
+2. 切换到 **Apple Music** 音源。首次使用时，在 macOS 的音乐访问弹窗中允许访问，再重试资料库页面。
+3. 从 MyGo 侧栏进入专辑、音乐人、歌曲或歌单。
+
+已授权时不需要额外登录。拒绝过访问时，在 **系统设置 > 隐私与安全性 > 媒体与 Apple Music** 中检查权限。
+
+### 自行构建
+
+自行构建需要 Xcode 和自己的 Apple 开发者签名配置。
 
 ```sh
 git clone https://github.com/hx23840/mygo-apple-music.git
@@ -27,14 +43,7 @@ bash scripts/build-xcode.sh --provision
 bash scripts/package.sh
 ```
 
-将示例值替换为自己的开发团队和 App ID。签名、MusicKit 配置和诊断构建见 [构建指南](docs/BUILDING.md)。
-
-1. 在 MyGo 的 **设置 > 插件 > 安装插件 > 从 Zip 文件** 选择 `dist/plugin-darwin-arm64.zip`。Intel 构建的文件名为 `plugin-darwin-x86_64.zip`。
-2. 允许已由自己构建的插件启动包内辅助程序。
-3. 切换到 **Apple Music** 音源。首次使用时，在 macOS 的音乐访问弹窗中允许访问，再重试资料库页面。
-4. 从 MyGo 侧栏进入专辑、音乐人、歌曲或歌单。
-
-已授权时不需要额外登录。拒绝过访问时，在 **系统设置 > 隐私与安全性 > 媒体与 Apple Music** 中检查权限。
+将示例值替换为自己的开发团队和 App ID，再安装 `dist/plugin-darwin-arm64.zip`。签名、MusicKit 配置和诊断构建见 [构建指南](docs/BUILDING.md)。
 
 ## 使用边界
 
@@ -62,7 +71,8 @@ npm run smoke
 
 | 目录 | 内容 |
 | --- | --- |
-| `plugin/` | MyGo 插件入口、清单和中文翻译 |
+| `plugin.json`、`index.js`、`locales/` | 位于仓库根目录的插件清单、入口和中文翻译 |
+| `bin/` | 构建生成的原生辅助程序，不进入源码仓库 |
 | `native/` | Swift MusicKit 辅助程序与 Xcode 工程 |
 | `scripts/` | 构建、打包和验证脚本 |
 | `tests/` | JS 行为测试及 Swift 协议测试 |

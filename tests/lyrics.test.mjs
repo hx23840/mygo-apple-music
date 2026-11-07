@@ -3,8 +3,8 @@ import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 
-const manifest = JSON.parse(await readFile(new URL('../plugin/plugin.json', import.meta.url), 'utf8'));
-const pluginSource = await readFile(new URL('../plugin/index.js', import.meta.url), 'utf8');
+const manifest = JSON.parse(await readFile(new URL('../plugin.json', import.meta.url), 'utf8'));
+const pluginSource = await readFile(new URL('../index.js', import.meta.url), 'utf8');
 const source = pluginSource.slice(pluginSource.indexOf('function createLyricsProvider'), pluginSource.indexOf('const lyricProvider ='));
 const track = { id: 'track1', name: 'Test Song', artists: [{ name: 'Test Artist' }], album: { name: 'Test Album' }, duration: 253000 };
 const record = { trackName: track.name, artistName: 'Test Artist', albumName: 'Test Album', duration: 253, syncedLyrics: '[00:01.00]Test line\n[00:04.00]Another line', instrumental: false };

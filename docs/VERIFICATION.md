@@ -51,3 +51,11 @@ MyGo 实际界面验证了本地收藏、歌单创建、添加曲目、重命名
 独立 Apple Music REST 服务探针未取得 developer token。已通过的资料库和播放路径使用原生 MusicKit，不依赖该 REST 探针。签名成功不作为 App Service 注册成功的证明。
 
 0.3.2 的开源整理主要调整签名配置、缓存目录选择和验证脚本输入。具体 CI 状态见仓库 Actions，真实音乐授权和播放不在 CI 覆盖范围内。
+
+0.3.3 将插件入口、清单和翻译移至仓库根目录，保持运行逻辑不变。迁移后 30 项 JS 测试及原生协议测试通过；发行签名、公证和从 GitHub 安装需对最终 Release 附件另行验收。
+
+## 0.3.3 发行包检查
+
+2026-11-07，Apple Silicon 发行辅助程序通过 Developer ID Application 签名、Apple 公证和票据验证，Gatekeeper 返回 `Notarized Developer ID`。实际签名启用了 hardened runtime。
+
+对同一公证产物重跑了完整真实播放脚本，资料库、专辑、音乐人、搜索、封面、辅助程序重启后播放、跳转到 100 秒、暂停恢复、切歌和结束信号均通过。发行签名首次音乐授权由用户确认。

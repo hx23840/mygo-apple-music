@@ -407,7 +407,7 @@ function createLyricsProvider(resolveTrack) {
     try {
       const operation = (async () => {
         const response = await fetch(url, {
-          headers: { "User-Agent": "MyGoAppleMusic/0.3.2 (MyGo plugin; https://github.com/hx23840/mygo-apple-music)", "Accept": "application/json" },
+          headers: { "User-Agent": "MyGoAppleMusic/0.3.3 (MyGo plugin; https://github.com/hx23840/mygo-apple-music)", "Accept": "application/json" },
           ...(controller ? { signal: controller.signal } : {})
         });
         if (response.status === 429 || response.status === 503) { holdRequests(response); return {}; }

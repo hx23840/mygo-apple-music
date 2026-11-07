@@ -33,7 +33,7 @@ function fakeProcess(onWrite) {
 async function plugin(spawn, platform = "darwin") {
   const saved = new Map();
   globalThis.host = { storage: { get: key => saved.get(key), set: (key, value) => saved.set(key, value) }, platform, language: () => "zh-CN", t: text => text, spawn };
-  return import(`../plugin/index.js?test=${++nonce}`);
+  return import(`../index.js?test=${++nonce}`);
 }
 
 test("concurrent requests share one helper and match out-of-order responses", async () => {

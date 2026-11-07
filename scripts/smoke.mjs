@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { readFile } from "node:fs/promises";
 import { setTimeout as sleep } from "node:timers/promises";
 
-const binary = fileURLToPath(new URL("../plugin/bin/MyGoAppleMusic.app/Contents/MacOS/MyGoAppleMusic", import.meta.url));
+const binary = fileURLToPath(new URL("../bin/MyGoAppleMusic.app/Contents/MacOS/MyGoAppleMusic", import.meta.url));
 const live = process.argv.includes("--live");
 function createClient() {
   const child = spawn(binary, ["--bridge", "--language", "zh-CN"], { stdio: ["pipe", "pipe", "inherit"] });

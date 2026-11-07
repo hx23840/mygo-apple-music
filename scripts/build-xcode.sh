@@ -25,8 +25,8 @@ esac
   ARCHS="$ARCH" ONLY_ACTIVE_ARCH=YES build
 SOURCE_APP="$ROOT/build/xcode/Build/Products/Release/MyGoAppleMusic.app"
 codesign --verify --strict "$SOURCE_APP"
-mkdir -p "$ROOT/plugin/bin"
-DEST_APP="$ROOT/plugin/bin/MyGoAppleMusic.app"
+mkdir -p "$ROOT/bin"
+DEST_APP="$ROOT/bin/MyGoAppleMusic.app"
 if [[ -e "$DEST_APP" ]]; then rm -rf "$DEST_APP"; fi
 ditto "$SOURCE_APP" "$DEST_APP"
 codesign --verify --strict "$DEST_APP"

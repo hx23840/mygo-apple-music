@@ -35,7 +35,7 @@ async function environment(options = {}) {
     get: key => clone(saved.get(key)),
     set: (key, value) => { if (options.writeFails?.()) throw Error('disk full'); saved.set(key, clone(value)); }
   } };
-  const api = await import(`../plugin/index.js?local=${++nonce}`);
+  const api = await import(`../index.js?local=${++nonce}`);
   return { api, saved, requests, close: () => child.kill() };
 }
 

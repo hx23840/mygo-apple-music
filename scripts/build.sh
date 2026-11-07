@@ -17,7 +17,7 @@ case "$MODE" in
   *) echo 'Usage: bash scripts/build.sh [--diagnostic|--signed]' >&2; exit 1 ;;
 esac
 if [[ ! "$BUNDLE_ID" =~ ^[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$ ]]; then echo 'Invalid Bundle ID.' >&2; exit 1; fi
-APP="$ROOT/plugin/bin/MyGoAppleMusic.app"
+APP="$ROOT/bin/MyGoAppleMusic.app"
 mkdir -p "$APP/Contents/MacOS" "$ROOT/build/module-cache"
 xcrun swiftc -swift-version 5 -O -target "$ARCH-apple-macos14.0" \
   -module-cache-path "$ROOT/build/module-cache" \
@@ -33,8 +33,8 @@ cat > "$APP/Contents/Info.plist" <<EOF
 <key>CFBundleDisplayName</key><string>MyGo Apple Music</string>
 <key>CFBundleExecutable</key><string>MyGoAppleMusic</string>
 <key>CFBundlePackageType</key><string>APPL</string>
-<key>CFBundleShortVersionString</key><string>0.3.2</string>
-<key>CFBundleVersion</key><string>5</string>
+<key>CFBundleShortVersionString</key><string>0.3.3</string>
+<key>CFBundleVersion</key><string>6</string>
 <key>LSMinimumSystemVersion</key><string>14.0</string>
 <key>LSUIElement</key><true/>
 <key>NSAppleMusicUsageDescription</key><string>Connect your Apple Music library and play your songs from MyGo Music.</string>

@@ -7,7 +7,7 @@ const title = process.env.APPLE_MUSIC_TEST_TITLE;
 const artist = process.env.APPLE_MUSIC_TEST_ARTIST;
 assert.ok(title && artist, 'Set APPLE_MUSIC_TEST_TITLE and APPLE_MUSIC_TEST_ARTIST to a library song with synchronized lyrics.');
 
-const directory = fileURLToPath(new URL('../plugin/', import.meta.url));
+const directory = fileURLToPath(new URL('../', import.meta.url));
 const saved = new Map();
 const processes = [];
 const methods = [];
@@ -33,7 +33,7 @@ globalThis.host = {
 };
 
 try {
-  const api = await import('../plugin/index.js?local-live=first');
+  const api = await import('../index.js?local-live=first');
   const found = await api.search({ query: title, kind: 'tracks', offset: 0 });
   const selected = found.tracks.find(track => track.name === title && track.artists.some(credit => credit.name === artist));
   assert.ok(selected, 'The verification song is not in this library.');
@@ -50,7 +50,7 @@ try {
     assert.ok((await api.playlist({ id: imported.id })).tracks.length < originalCount);
     assert.equal((await api.playlists()).find(item => item.id === imported.id).fixed, false);
   }
-  const restarted = await import('../plugin/index.js?local-live=reloaded');
+  const restarted = await import('../index.js?local-live=reloaded');
   assert.equal(restarted.isLiked({ ids: [selected.id] })[selected.id], true);
   const restored = await restarted.playlist({ id: list.id });
   assert.equal(restored.name, 'Renamed isolated verification');

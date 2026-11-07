@@ -60,7 +60,7 @@ final class AppleMusicService {
         do {
             switch request.command {
             case .diagnostics:
-                Output.result(request.id, ["version": Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.3.2", "bundleId": Bundle.main.bundleIdentifier ?? "", "configured": configured ? "true" : "false", "minimumOS": "14.0"])
+                Output.result(request.id, ["version": Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0.3.3", "bundleId": Bundle.main.bundleIdentifier ?? "", "configured": configured ? "true" : "false", "minimumOS": "14.0"])
             case .serviceCheck:
                 try requireConnected()
                 let requestURL = URL(string: "https://api.music.apple.com/v1/test")!

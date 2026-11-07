@@ -34,7 +34,7 @@ bash scripts/package.sh
 
 构建默认使用本机架构。设置 `APPLE_MUSIC_ARCH=arm64` 或 `APPLE_MUSIC_ARCH=x86_64` 可选择目标架构。打包脚本从实际可执行文件读取架构，输出到 `dist/`。
 
-所有构建会写入 `plugin/bin/`，切换签名模式后需要重新打包。完整插件 ZIP 的根目录包含 `plugin.json`、`index.js`、`locales/` 和 `bin/`。GitHub 自动生成的源码 ZIP 不是可安装的插件 ZIP。
+所有构建会写入 `bin/`，切换签名模式后需要重新打包。完整插件 ZIP 的根目录包含 `plugin.json`、`index.js`、`locales/`、`bin/` 和 `LICENSE`。GitHub 自动生成的源码 ZIP 不是可安装的插件 ZIP。
 
 ## 构建诊断包
 
@@ -48,4 +48,12 @@ bash scripts/package.sh
 
 ## 发行二进制
 
-本仓库当前只发布源码。Apple Development 构建用于本机开发，仓库不会上传开发者证书、描述文件或个人签名安装包。面向其他设备的二进制发行需要另行配置适用的签名、公证和实机验收。
+完整操作见 [发行指南](RELEASING.md)。
+
+Apple Development 构建用于本机开发。面向其他设备的发行包需要 Developer ID 发行签名、公证和实际安装验收，不使用开发调试证书作为公开安装包。
+
+待发行辅助程序完成签名和公证后，将完整应用放入 `bin/MyGoAppleMusic.app`，运行 `bash scripts/package.sh`。打包脚本会检查签名、可执行权限，以及清单、package.json 和辅助程序的版本是否一致。
+
+将 `dist/plugin-darwin-arm64.zip` 作为 Release 附件上传。附件中的清单和入口位于 ZIP 根目录。源码仓库的根目录也保留清单和入口，但不包含 `bin/`；缺少平台附件时，MyGo 回退下载的源码无法播放。
+
+发行前验证从 GitHub 安装、音乐授权和播放，再给公开仓库添加 `mygo-music-plugin` 话题。GitHub 索引后会出现在官方插件页。当前发行目标为 Apple Silicon，Intel 仍需单独验收。证书私钥、账号凭据和构建日志不得进入公开仓库或 Release。
